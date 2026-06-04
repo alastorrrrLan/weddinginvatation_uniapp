@@ -1,126 +1,110 @@
 <template>
-  <div @click="clickHandle">
-
-    <div class="userinfo" @click="bindViewTap">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-      <img class="userinfo-avatar" src="/static/images/user.png" background-size="cover" />
-
-      <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
-      </div>
+    <div class="invitation-container">
+      <invitation-card
+        background-image="backgroundImage"
+        info-img="invitationImage"
+      />
+      <invitation-card
+        background-image="otherBackgroundImage"
+        info-img="timelineImage"
+      />
+      <invitation-card
+        background-image="otherBackgroundImage"
+        info-img="dressCodeImage"
+      />
+      <invitation-card
+        background-image="otherBackgroundImage"
+        info-img="weddingvenueImage"
+        :clickable="true"
+        @click="gotoLocation"
+      />
+      <invitation-card
+        background-image="otherBackgroundImage"
+        info-img="hintImage"
+      />
+      <invitation-card
+        background-image="otherBackgroundImage"
+        info-img="blessingImage"
+      />
     </div>
-
-    <div class="usermotto">
-      <div class="user-motto">
-        <card :text="motto"></card>
-      </div>
-    </div>
-
-    <form class="form-container">
-      <input type="text" class="form-control" :value="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
-    </form>
-
-    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
-
-    <div class="all">
-        <div class="left">
-        </div>
-        <div class="right">
-        </div>
-    </div>
-  </div>
 </template>
 
 <script>
-import card from '@/components/card'
+import invitationCard from '../../components/invitation/invitationCard.vue'
+import {commonVar, commonString, dbKeyMap} from '../../utils/CommonVar'
 
 export default {
   data () {
     return {
-      motto: 'Hello miniprograme',
-      userInfo: {
-        nickName: 'mpvue',
-        avatarUrl: 'http://mpvue.com/assets/logo.png'
-      }
+      windowWidth: wx.getAppBaseInfo().screenWidth,
+      locationMap: null
     }
   },
 
   components: {
-    card
+    invitationCard
   },
 
   methods: {
-    bindViewTap () {
-      const url = '../logs/main'
-      if (mpvuePlatform === 'wx') {
-        mpvue.switchTab({ url })
+    gotoLocation () {
+      if (!this.locationMap) {
+        this.getLocation(() => {
+          wx.openLocation({...this.locationMap, scale: 16, name: '鉴宽山房'})
+        })
       } else {
-        mpvue.navigateTo({ url })
+        wx.openLocation({...this.locationMap, scale: 16, name: '鉴宽山房'})
       }
     },
-    clickHandle (ev) {
-      console.log('clickHandle:', ev)
-      // throw {message: 'custom test'}
+    getLocation (cb) {
+      const key = commonVar.qqmapKey
+      wx.request({
+        url: commonVar.locationAPI + `${encodeURIComponent(commonString.locationKeyword)}&key=${key}`,
+        success: (res) => {
+          if (res.statusCode === 200) {
+            if (res && res.data && res.data.result && res.data.result.location) {
+              const {lat, lng} = res.data.result.location
+              this.locationMap = {latitude: lat, longitude: lng}
+              cb && cb(res)
+            }
+          }
+        },
+        fail: (err) => {
+          console.error('err', err)
+        }
+      })
     }
   },
 
-  created () {
-    // let app = getApp()
+  mounted () {
+    // 初始化地图经纬度
+    const db = wx.cloud.database()
+    db.collection(dbKeyMap.location).get({
+      success: res => {
+        if (res.data && res.data.length > 0) {
+          this.locationMap = res.data[0].location
+        } else {
+          this.getLocation(() => {
+            db.collection(dbKeyMap.location).add({
+              data: {
+                location: {
+                  latitude: this.locationMap.latitude,
+                  longitude: this.locationMap.longitude
+                }
+              }
+            })
+          })
+        }
+      }
+    })
   }
 }
 </script>
 
 <style scoped>
-.userinfo {
+.invitation-container {
+  height: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 150px;
-}
-
-.form-control {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
-  border: 1px solid #ccc;
-}
-.all{
-  width:7.5rem;
-  height:1rem;
-  background-color:blue;
-}
-.all:after{
-  display:block;
-  content:'';
-  clear:both;
-}
-.left{
-  float:left;
-  width:3rem;
-  height:1rem;
-  background-color:red;
-}
-
-.right{
-  float:left;
-  width:4.5rem;
-  height:1rem;
-  background-color:green;
-}
 </style>
