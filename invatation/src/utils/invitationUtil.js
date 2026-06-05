@@ -1,5 +1,5 @@
 const imageMap = {
-  invitationImage: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/weddinginvitation.png',
+  invitationImage: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/main.png',
   backgroundImage: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/bg.png',
   otherBackgroundImage: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/otherBg.png',
   timelineImage: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/timeline.png',
@@ -13,7 +13,10 @@ const imageMap = {
   guestActive: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/guest-active.png',
   selected: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/selected.png'
 }
+const fontMap = {
+  cuteFont: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/fonts/XiangJiaoKuanMaoShuaLingGanTi-2.ttf'
+}
 
 export {
-  imageMap
+  imageMap, fontMap
 }

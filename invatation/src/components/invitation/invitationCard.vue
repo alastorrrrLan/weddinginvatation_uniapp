@@ -4,11 +4,11 @@
        @click="clickable ? click() : null"
   >
     <img
-      :src="backgroundImgUrl"
+      :src="imageMap[backgroundImage]"
       alt=""
       class="invitation-bg-image"
     >
-    <img :src="contentImgUrl" alt="" class="title-container" mode="widthFix" />
+    <img :src="imageMap[infoImg]" alt="" class="title-container" mode="widthFix" />
   </div>
 </template>
 
@@ -34,47 +34,18 @@ export default {
     }
   },
   computed: {
+    imageMap () {
+      return imageMap
+    }
   },
 
   methods: {
-    getImageUrl (dataKey, cacheKey) {
-      // 测试先不用缓存
-      wx.cloud.getTempFileURL({fileList: [imageMap[this[cacheKey]]]}).then(res => {
-        let url = ''
-        if (res && res.fileList && res.fileList.length > 0 && res.fileList[0]) {
-          url = res.fileList[0].tempFileURL ? res.fileList[0].tempFileURL : ''
-          const fixParam = '?imageView2/0/1/99'
-          url = url.includes('?') ? url + '&imageView2/0/1/99' : url + fixParam
-          this[dataKey] = url
-          wx.setStorageSync(this[cacheKey], {url, saveTime: Date.now()})
-        }
-      })
-      // 查看缓存图片是否过期，到期时间一天
-      // const cache = wx.getStorageSync(this[cacheKey])
-      // if (cache && ((Date.now() - cache.saveTime) < 24 * 3600 * 1000)) {
-      //   this[dataKey] = cache.url
-      // } else {
-      //   wx.cloud.getTempFileURL({fileList: [imageMap[this[cacheKey]]]}).then(res => {
-      //     let url = ''
-      //     if (res && res.fileList && res.fileList.length > 0 && res.fileList[0]) {
-      //       url = res.fileList[0].tempFileURL ? res.fileList[0].tempFileURL : ''
-      //       const fixParam = '?imageView2/0/1/99'
-      //       url = url.includes('?') ? url + '&imageView2/0/1/99' : url + fixParam
-      //       this[dataKey] = url
-      //       wx.setStorageSync(this[cacheKey], {url, saveTime: Date.now()})
-      //     }
-      //   }
-      //   )
-      // }
-    },
     click () {
       this.$emit('click')
     }
   },
 
   mounted () {
-    this.getImageUrl('backgroundImgUrl', 'backgroundImage')
-    this.getImageUrl('contentImgUrl', 'infoImg')
   }
 }
 </script>

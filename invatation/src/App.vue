@@ -1,5 +1,5 @@
 <script>
-import {imageMap} from './utils/invitationUtil'
+import {fontMap} from './utils/invitationUtil'
 
 export default {
   created () {
@@ -30,15 +30,21 @@ export default {
     console.log(`log at:${Date.now()}`)
   },
   onLaunch () {
-    wx.loadFontFace({
-      family: 'cute-font',
-      global: true,
-      source: 'url("https://font-1439949452.cos.ap-guangzhou.myqcloud.com/XiangJiaoKuanMaoShuaLingGanTi-2.ttf")',
-      success: (res) => {
-        console.log('success', res)
-      },
-      fail: (err) => {
-        console.log('fail', err)
+    wx.cloud.getTempFileURL({fileList: [fontMap.cuteFont]}).then(res => {
+      let url = ''
+      if (res && res.fileList && res.fileList.length > 0 && res.fileList[0]) {
+        url = res.fileList[0].tempFileURL ? res.fileList[0].tempFileURL : ''
+        wx.loadFontFace({
+          family: 'cute-font',
+          global: true,
+          source: `url("${url}")`,
+          success: (res) => {
+            console.log('success', res)
+          },
+          fail: (err) => {
+            console.log('fail', err)
+          }
+        })
       }
     })
   }
