@@ -6,7 +6,11 @@ const imageMap = {
   dressCodeImage: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/dressCode.png',
   weddingvenueImage: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/weddingvenue.png',
   hintImage: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/hint.png',
-  blessingImage: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/blessing.png'
+  blessingImage: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/blessing.png',
+  invitation: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/invitation.png',
+  invitationActive: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/invitation-active.png',
+  guest: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/guest.png',
+  guestActive: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/guest-active.png'
 }
 
 export {
