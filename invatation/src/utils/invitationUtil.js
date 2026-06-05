@@ -10,7 +10,8 @@ const imageMap = {
   invitation: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/invitation.png',
   invitationActive: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/invitation-active.png',
   guest: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/guest.png',
-  guestActive: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/guest-active.png'
+  guestActive: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/guest-active.png',
+  selected: 'cloud://cloud1-d1giw0qij607a4b14.636c-cloud1-d1giw0qij607a4b14-1439949452/invitationImg/selected.png'
 }
 
 export {

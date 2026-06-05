@@ -26,6 +26,19 @@ export default {
   },
   log () {
     console.log(`log at:${Date.now()}`)
+  },
+  onLaunch () {
+    wx.loadFontFace({
+      family: 'cute-font',
+      global: true,
+      source: 'url("https://font-1439949452.cos.ap-guangzhou.myqcloud.com/XiangJiaoKuanMaoShuaLingGanTi-2.ttf")',
+      success: (res) => {
+        console.log('success', res)
+      },
+      fail: (err) => {
+        console.log('fail', err)
+      }
+    })
   }
 }
 </script>

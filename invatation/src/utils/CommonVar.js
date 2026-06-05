@@ -8,6 +8,7 @@ const commonString = {
 }
 
 const dbKeyMap = {
-  location: 'location'
+  location: 'location',
+  guestInformation: 'guest_information'
 }
 export {commonVar, commonString, dbKeyMap}

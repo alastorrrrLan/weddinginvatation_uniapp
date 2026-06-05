@@ -6,4 +6,5 @@ App.mpType = 'app'
 
 const app = new Vue(App)
 wx.cloud.init({env: 'cloud1-d1giw0qij607a4b14'})
+Vue.prototype.$db = wx.cloud.database()
 app.$mount()

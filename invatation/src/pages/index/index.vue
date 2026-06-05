@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100vh; width: 100%;">
     <invitation-tab :hidden="current !== 0"></invitation-tab>
     <guest-tab :hidden="current !== 1"></guest-tab>
     <tab-bar :current="current" @switch-tab="switchTab"/>
@@ -38,9 +38,4 @@ export default {
 </script>
 
 <style scoped>
-.invitation-container {
-  height: auto;
-  display: flex;
-  flex-direction: column;
-}
 </style>
